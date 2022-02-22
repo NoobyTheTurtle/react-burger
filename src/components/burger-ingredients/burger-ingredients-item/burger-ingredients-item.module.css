@@ -1,0 +1,33 @@
+.ul {
+    padding-left: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 272px;
+}
+
+.img {
+    height: 120px;
+    width: 240px;
+}
+
+.counter {
+    position: relative;
+    left: 135px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    text-align: center;
+}
