@@ -17,19 +17,23 @@ const BurgerIngredients = ({ingredients}) => {
         <section className={`${styles.section} pt-10`}>
             <h1 className={`text text_type_main-large`}>Соберите бургер</h1>
             <div className={`${styles.categories} mt-5`}>
-                {categories.map((item) =>
-                    <Tab key={item.type} value={item.type} active={current === item.type} onClick={setCurrent}>
-                        {item.title}
-                    </Tab>
-                )}
+                {
+                    categories.map((item) => (
+                        <Tab key={item.type} value={item.type} active={current === item.type} onClick={setCurrent}>
+                            {item.title}
+                        </Tab>
+                    ))
+                }
             </div>
             <div className={`${styles.ingredients} mt-10`}>
                 {
-                    categories.map((c) => <BurgerIngredientsItem
-                        key={c.type}
-                        title={c.title}
-                        ingredients={ingredients.filter((i) => i.type === c.type)}
-                    />)
+                    categories.map((c) => (
+                        <BurgerIngredientsItem
+                            key={c.type}
+                            title={c.title}
+                            ingredients={ingredients.filter((i) => i.type === c.type)}
+                        />
+                    ))
                 }
             </div>
         </section>

@@ -10,30 +10,32 @@ const BurgerConstructor = ({ingredients}) => {
                     <ConstructorElement
                         type="top"
                         isLocked={true}
-                        text="Краторная булка N-200i (верх)"
+                        text={`${ingredients[0].name} (вверх)`}
                         price={ingredients[0].price}
                         thumbnail={ingredients[0].image_mobile}
                     />
                 </li>
                 <div className={`${styles.ingredients}`}>
-                    {ingredients.slice(1, -1).map((item) =>
-                        <li className={`${styles.li} mt-4 mb-4 mr-2`} key={item._id}>
-                            <div className={styles.icon}>
-                                <DragIcon type="primary"/>
-                            </div>
-                            <ConstructorElement
-                                text="Краторная булка N-200i (верх)"
-                                price={item.price}
-                                thumbnail={item.image_mobile}
-                            />
-                        </li>
-                    )}
+                    {
+                        ingredients.slice(1, -1).map((item) => (
+                            <li className={`${styles.li} mt-4 mb-4 mr-2`} key={item._id}>
+                                <div className={styles.icon}>
+                                    <DragIcon type="primary"/>
+                                </div>
+                                <ConstructorElement
+                                    text={item.name}
+                                    price={item.price}
+                                    thumbnail={item.image_mobile}
+                                />
+                            </li>
+                        ))
+                    }
                 </div>
                 <li className={`${styles.li} pl-8 mr-4`}>
                     <ConstructorElement
                         type="bottom"
                         isLocked={true}
-                        text="Краторная булка N-200i (низ)"
+                        text={`${ingredients[0].name} (низ)`}
                         price={ingredients[0].price}
                         thumbnail={ingredients[0].image_mobile}
                     />
