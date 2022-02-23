@@ -1,0 +1,18 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #1C1C21;
+}
+
+.navItem {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    justify-content: center;
+}
+
+.left {
+    composes: navItem;
+    justify-content: flex-end;
+}

@@ -1,0 +1,28 @@
+.categories {
+    display: flex;
+}
+
+.section {
+    max-width: 600px;
+    max-height: 912px;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    max-height: 716px;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    border: 3px solid #8585AD;
+}
