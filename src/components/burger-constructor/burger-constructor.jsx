@@ -57,12 +57,7 @@ const BurgerConstructor = ({ingredients}) => {
                     </Button>
                     {modalOpen && (
                         <Modal handleClose={() => setModalOpen(false)}>
-                            <OrderDetails
-                                title={"034546"}
-                                subTitle={"индетификатор заказа"}
-                                mainText={"Ваш заказ начали готовить"}
-                                subText={"Дождитесь готовности на орбитальной станции"}
-                            />
+                            <OrderDetails title={"034546"}/>
                         </Modal>
                     )}
                 </div>

@@ -7,17 +7,14 @@ import Modal from "../../modal/modal";
 import IngredientDetails from "../../ingredient-details/ingredient-details";
 
 const BurgerIngredientsItem = ({title, ingredients}) => {
-    const [modalOpen, setModalOpen] = useState(false)
     const [chosenIngredient, setChosenIngredient] = useState(null)
 
     const chooseIngredient = (ingredient) => () => {
         setChosenIngredient(ingredient)
-        setModalOpen(true)
     }
 
     const removeChosenIngredient = () => {
         setChosenIngredient(null)
-        setModalOpen(false)
     }
 
     return (
@@ -26,8 +23,11 @@ const BurgerIngredientsItem = ({title, ingredients}) => {
             <ul className={`${styles.ul} pb-10`}>
                 {
                     ingredients.map((item) => (
-                        <li key={item._id} className={`${styles.li} mt-6 mb-2 ml-4 mr-2`}
-                            onClick={chooseIngredient(item)}>
+                        <li
+                            key={item._id}
+                            className={`${styles.li} mt-6 mb-2 ml-4 mr-2`}
+                            onClick={chooseIngredient(item)}
+                        >
                             <div className={styles.counter}>
                                 <Counter count={1} size="default"/>
                             </div>
@@ -45,7 +45,7 @@ const BurgerIngredientsItem = ({title, ingredients}) => {
                     ))
                 }
             </ul>
-            {modalOpen && chosenIngredient &&
+            {chosenIngredient &&
                 (<Modal handleClose={removeChosenIngredient} title={"Детали ингредиента"}>
                     <IngredientDetails
                         {...chosenIngredient}

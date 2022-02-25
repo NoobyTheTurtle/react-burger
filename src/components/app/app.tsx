@@ -6,10 +6,10 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import {fetchIngredients} from "../../utils/api";
 
 function App() {
-    const [apiData, setApiData] = useState([]);
+    const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
-        fetchIngredients.then(data => setApiData(data.data))
+        fetchIngredients.then(data => setIngredients(data.data))
             .catch(error => console.log(`Api response error: ${error.message}`))
     }, [])
 
@@ -17,10 +17,10 @@ function App() {
         <>
             <AppHeader/>
             <main className={styles.main}>
-                {apiData.length > 0 && (
+                {ingredients.length > 0 && (
                     <>
-                        <BurgerIngredients ingredients={apiData}/>
-                        <BurgerConstructor ingredients={apiData}/>
+                        <BurgerIngredients ingredients={ingredients}/>
+                        <BurgerConstructor ingredients={ingredients}/>
                     </>
                 )}
             </main>

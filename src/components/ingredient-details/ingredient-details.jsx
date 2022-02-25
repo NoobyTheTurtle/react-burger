@@ -4,7 +4,7 @@ import {burgerIngredient} from "../../utils/prop-types";
 const IngredientDetails = (props) => {
     return (
         <section className={styles.section}>
-            <img src={props.image_large} alt="ingredient"/>
+            <img src={props.image_large} alt={props.name}/>
             <h3 className="text text_type_main-medium mb-8 mt-4">{props.name}</h3>
             <div className={styles.infoContainer}>
                 <div className={styles.info}>
