@@ -1,8 +1,13 @@
 import styles from "./burger-constructor.module.css";
 import {Button, ConstructorElement, CurrencyIcon, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {burgerIngredients} from "../../utils/prop-types";
+import Modal from "../modal/modal";
+import {useState} from "react";
+import OrderDetails from "../order-details/order-details";
 
 const BurgerConstructor = ({ingredients}) => {
+    const [modalOpen, setModalOpen] = useState(false)
+
     return (
         <section className={`${styles.section} pt-25 ml-10`}>
             <ul className={`${styles.ul}`}>
@@ -47,9 +52,14 @@ const BurgerConstructor = ({ingredients}) => {
                             <CurrencyIcon type="primary"/>
                         </div>
                     </div>
-                    <Button type="primary" size="large">
+                    <Button type="primary" size="large" onClick={() => setModalOpen(true)}>
                         Оформить заказ
                     </Button>
+                    {modalOpen && (
+                        <Modal handleClose={() => setModalOpen(false)}>
+                            <OrderDetails title={"034546"}/>
+                        </Modal>
+                    )}
                 </div>
             </ul>
         </section>
