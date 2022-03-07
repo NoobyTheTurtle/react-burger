@@ -3,13 +3,14 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import styles from "./app.module.css"
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import {fetchIngredients} from "../../utils/api";
+import {fetchRequest} from "../../utils/api";
+import {IngredientsContext} from "../../services/appContext";
 
 function App() {
     const [ingredients, setIngredients] = useState([]);
 
     useEffect(() => {
-        fetchIngredients.then(data => setIngredients(data.data))
+        fetchRequest('/ingredients').then(data => setIngredients(data.data))
             .catch(error => console.log(`Api response error: ${error.message}`))
     }, [])
 
@@ -18,10 +19,10 @@ function App() {
             <AppHeader/>
             <main className={styles.main}>
                 {ingredients.length > 0 && (
-                    <>
-                        <BurgerIngredients ingredients={ingredients}/>
-                        <BurgerConstructor ingredients={ingredients}/>
-                    </>
+                    <IngredientsContext.Provider value={ingredients}>
+                        <BurgerIngredients/>
+                        <BurgerConstructor/>
+                    </IngredientsContext.Provider>
                 )}
             </main>
         </>

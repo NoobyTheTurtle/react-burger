@@ -6,56 +6,7 @@
     flex-direction: column;
 }
 
-.li {
-    display: flex;
-    align-items: center;
-    line-height: 16px;
-}
-
-.icon {
-    width: 32px;
-}
-
 .section {
-    max-width: 600px;
+    width: 600px;
     max-height: 912px;
-}
-
-.placeOrder {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.fullPrice {
-    display: flex;
-    align-items: center;
-}
-
-.currencyIcon svg {
-    width: 100%;
-    height: 100%;
-}
-
-.currencyIcon {
-    height: 33px;
-    width: 33px;
-}
-
-.ingredients {
-    height: 496px;
-    overflow: auto;
-}
-
-.ingredients::-webkit-scrollbar {
-    width: 8px;
-}
-
-.ingredients::-webkit-scrollbar-track {
-    background: #2F2F37;
-}
-
-.ingredients::-webkit-scrollbar-thumb {
-    background-color: #8585AD;
-    border: 3px solid #8585AD;
 }
