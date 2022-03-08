@@ -1,8 +1,8 @@
 import styles from "./burger-ingredients.module.css";
-import React from "react";
+import React, {useContext} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsItem from "./burger-ingredients-item/burger-ingredients-item";
-import {burgerIngredients} from "../../utils/prop-types";
+import {IngredientsContext} from "../../services/appContext";
 
 const categories = [
     {title: "Булки", type: "bun"},
@@ -10,7 +10,8 @@ const categories = [
     {title: "Начинки", type: "main"}
 ]
 
-const BurgerIngredients = ({ingredients}) => {
+const BurgerIngredients = () => {
+    const ingredients = useContext(IngredientsContext)
     const [current, setCurrent] = React.useState("bun")
 
     return (
@@ -38,10 +39,6 @@ const BurgerIngredients = ({ingredients}) => {
             </div>
         </section>
     )
-}
-
-BurgerIngredients.propTypes = {
-    ingredients: burgerIngredients
 }
 
 export default BurgerIngredients

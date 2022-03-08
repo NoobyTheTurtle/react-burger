@@ -1,0 +1,28 @@
+.li {
+    display: flex;
+    align-items: center;
+    line-height: 16px;
+}
+
+.icon {
+    width: 32px;
+}
+
+.ingredients {
+    max-height: 496px;
+    overflow: auto;
+    min-height: 120px;
+}
+
+.ingredients::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredients::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.ingredients::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    border: 3px solid #8585AD;
+}
