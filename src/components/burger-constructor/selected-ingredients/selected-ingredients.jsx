@@ -1,9 +1,19 @@
 import styles from "./selected-ingredients.module.css";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {burgerIngredient, burgerIngredients} from "../../../utils/prop-types";
-import React from "react";
+import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
+import {constructorIngredient, constructorIngredients} from "../../../utils/prop-types";
+import React, {useCallback} from "react";
+import SelectedIngredientsItem from "./selected-ingredients-item/selected-ingredients-item";
+import {useDispatch} from "react-redux";
+import {removeIngredientFromConstructor} from "../../../services/reducers/burger";
 
 const SelectedIngredients = ({bun, ingredients}) => {
+    const dispatch = useDispatch()
+
+    const handleClose = useCallback((ingredientId) => (e) => {
+        e.preventDefault()
+        dispatch(removeIngredientFromConstructor(ingredientId))
+    }, [dispatch])
+
     return (
         <>
             {bun && (
@@ -19,17 +29,14 @@ const SelectedIngredients = ({bun, ingredients}) => {
             )}
             <div className={`${styles.ingredients}`}>
                 {
-                    ingredients.map((item) => (
-                        <li className={`${styles.li} mt-4 mb-4 mr-2`} key={item._id}>
-                            <div className={styles.icon}>
-                                <DragIcon type="primary"/>
-                            </div>
-                            <ConstructorElement
-                                text={item.name}
-                                price={item.price}
-                                thumbnail={item.image_mobile}
-                            />
-                        </li>
+                    ingredients.map((ingredient, index) => ingredient.type !== 'bun' && (
+                        <SelectedIngredientsItem
+                            ingredient={ingredient}
+                            key={ingredient.constructorId}
+                            id={ingredient.constructorId}
+                            index={index}
+                            handleClose={handleClose}
+                        />
                     ))
                 }
             </div>
@@ -49,8 +56,8 @@ const SelectedIngredients = ({bun, ingredients}) => {
 }
 
 SelectedIngredients.propTypes = {
-    bun: burgerIngredient,
-    ingredients: burgerIngredients
+    bun: constructorIngredient,
+    ingredients: constructorIngredients
 }
 
 export default SelectedIngredients

@@ -1,0 +1,9 @@
+.icon {
+    width: 32px;
+}
+
+.li {
+    display: flex;
+    align-items: center;
+    line-height: 16px;
+}
