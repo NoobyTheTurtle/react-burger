@@ -1,39 +1,35 @@
 import styles from "./burger-constructor.module.css";
 import SelectedIngredients from "./selected-ingredients/selected-ingredients";
 import PlaceOrder from "./place-order/place-order";
-import {useContext, useMemo} from "react";
-import {IngredientsContext} from "../../services/appContext";
-
-function randomInteger(min, max) {
-    let rand = min + Math.random() * (max + 1 - min);
-    return Math.floor(rand);
-}
+import React, {useMemo} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {selectConstructorIngredients} from "../../services/reducers/burger";
+import {useDrop} from "react-dnd";
+import {dropIngredient} from "../../services/actions/burger";
 
 const BurgerConstructor = () => {
-    const ingredients = useContext(IngredientsContext)
+    const ingredients = useSelector(selectConstructorIngredients)
+    const dispatch = useDispatch()
+    const [, dropRef] = useDrop({
+        accept: 'ingredients',
+        drop(ingredient) {
+            dispatch(dropIngredient(ingredient, bun))
+        }
+    })
 
     const otherIngredients = useMemo(() => {
         return ingredients.filter((el) => el.type !== 'bun')
     }, [ingredients])
 
-    const onlyBuns = useMemo(() => {
-        return ingredients.filter((el) => el.type === 'bun')
+    const bun = useMemo(() => {
+        return ingredients.find((el) => el.type === 'bun') || null
     }, [ingredients])
 
-    const getRandomBun = useMemo(() => {
-        return onlyBuns[randomInteger(0, onlyBuns.length - 1)]
-    }, [onlyBuns])
-
-    const getRandomOtherIngredients = useMemo(() => {
-        return otherIngredients.slice(0, randomInteger(1, otherIngredients.length - 1))
-            .sort(() => Math.random() - 0.5)
-    }, [otherIngredients])
-
     return (
-        <section className={`${styles.section} pt-25 ml-10`}>
+        <section className={`${styles.section} pt-25 ml-10`} ref={dropRef}>
             <ul className={`${styles.ul}`}>
-                <SelectedIngredients bun={getRandomBun} ingredients={getRandomOtherIngredients}/>
-                <PlaceOrder ingredients={getRandomOtherIngredients} bun={getRandomBun}/>
+                <SelectedIngredients bun={bun} ingredients={ingredients}/>
+                <PlaceOrder bun={bun} ingredients={otherIngredients}/>
             </ul>
         </section>
     )
