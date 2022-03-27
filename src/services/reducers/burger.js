@@ -3,7 +3,6 @@ import {createSlice, nanoid} from "@reduxjs/toolkit";
 const initialState = {
     ingredients: [],
     constructorIngredients: [],
-    chosenIngredient: null,
     order: {
         number: null
     },
@@ -22,12 +21,6 @@ const burgerSlice = createSlice({
         },
         getIngredientsFailed() {
             return initialState
-        },
-        setChosenIngredient(state, action) {
-            state.chosenIngredient = action.payload
-        },
-        deleteChosenIngredient(state) {
-            state.chosenIngredient = null
         },
         postOrderRequest(state) {
             state.orderRequest = true
@@ -49,11 +42,14 @@ const burgerSlice = createSlice({
         removeIngredientFromConstructor(state, action) {
             state.constructorIngredients = state.constructorIngredients.filter((i) => i.constructorId !== action.payload)
         },
+        clearIngredientsFromConstructor(state) {
+            state.constructorIngredients = []
+        },
         setTotalPrice(state, action) {
             state.totalPrice = action.payload
         },
         replaceIngredient(state, action) {
-            const { dragIndex, hoverIndex } = action.payload
+            const {dragIndex, hoverIndex} = action.payload
             const dragItem = state.constructorIngredients[dragIndex]
             state.constructorIngredients.splice(dragIndex, 1)
             state.constructorIngredients.splice(hoverIndex, 0, dragItem)
@@ -65,8 +61,6 @@ export const {
     getIngredientsRequest,
     getIngredientsSuccess,
     getIngredientsFailed,
-    setChosenIngredient,
-    deleteChosenIngredient,
     postOrderRequest,
     postOrderSuccess,
     postOrderFailed,
@@ -74,13 +68,13 @@ export const {
     addIngredientToConstructor,
     removeIngredientFromConstructor,
     setTotalPrice,
-    replaceIngredient
+    replaceIngredient,
+    clearIngredientsFromConstructor
 } = burgerSlice.actions;
 
 export const selectIngredients = (state) => state.burger.ingredients
 export const selectConstructorIngredients = (state) => state.burger.constructorIngredients
 export const selectOrderNumber = (state) => state.burger.order.number
-export const selectChosenIngredient = (state) => state.burger.chosenIngredient
 export const selectOrderRequest = (state) => state.burger.orderRequest
 export const selectTotalPrice = (state) => state.burger.totalPrice
 

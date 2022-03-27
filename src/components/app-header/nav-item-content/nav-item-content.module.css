@@ -2,8 +2,17 @@
     border-radius: 40px;
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 
 .text {
     white-space: nowrap;
+}
+
+.active p {
+    color: #F2F2F3;
+}
+
+.active svg {
+    fill: #F2F2F3;
 }

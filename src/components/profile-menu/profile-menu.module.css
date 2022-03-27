@@ -1,0 +1,29 @@
+.nav {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+}
+
+.navLink {
+    text-decoration: none;
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.active p{
+    color: #F2F2F3;
+}
+
+.info {
+    opacity: 0.4;
+}
+
+.button {
+    composes: navLink;
+    background: #131316;
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
