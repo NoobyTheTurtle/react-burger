@@ -10,6 +10,8 @@ const modalRoot = document.getElementById("modal-root");
 const Modal = ({title, children, handleClose}) => {
 
     useEffect(() => {
+        if (!handleClose) return
+
         const onKeydown = ({key}) => {
             if (key === 'Escape') {
                 handleClose()
@@ -23,15 +25,18 @@ const Modal = ({title, children, handleClose}) => {
     return ReactDOM.createPortal(
         (<>
             <div className={`${styles.modal} pr-10 pl-10 pt-10 pb-15`} onClick={e => e.stopPropagation()}>
-                <div className={styles.header}>
-                    <button onClick={handleClose} className={styles.button}>
-                        <CloseIcon type="primary"/>
-                    </button>
-                    {title && (<h2 className="text text text_type_main-large">{title}</h2>)}
-                </div>
+                {handleClose && (
+                    <div className={styles.header}>
+                        <button onClick={handleClose} className={styles.button}>
+                            <CloseIcon type="primary"/>
+                        </button>
+                        {title && (<h2 className="text text text_type_main-large">{title}</h2>)}
+                    </div>
+                )}
                 {children}
             </div>
-            <ModalOverlay onClose={handleClose}/>
+            <ModalOverlay onClose={handleClose || (() => {
+            })}/>
         </>),
         modalRoot
     )
@@ -39,7 +44,7 @@ const Modal = ({title, children, handleClose}) => {
 
 Modal.propsType = {
     title: PropTypes.string,
-    handleClose: PropTypes.func.isRequired,
+    handleClose: PropTypes.func,
     children: PropTypes.element.isRequired
 }
 

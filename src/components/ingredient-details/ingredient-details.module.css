@@ -16,3 +16,7 @@
     align-items: center;
     width: 112px;
 }
+
+.title {
+    height: 64px;
+}

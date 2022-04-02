@@ -6,27 +6,33 @@ import {
     postOrderFailed,
     postOrderRequest,
     postOrderSuccess,
-    removeIngredientFromConstructor, setTotalPrice
+    removeIngredientFromConstructor,
+    selectIngredients,
+    setTotalPrice
 } from "../reducers/burger";
-import {fetchRequest} from "../../utils/api";
+import {authFetchRequest, fetchRequest} from "../../utils/api";
 
-export const getIngredientsThunk = () => (dispatch) => {
+export const getIngredientsThunk = () => (dispatch, getState) => {
+    if (selectIngredients(getState()).length > 0) return
+
     dispatch(getIngredientsRequest())
     fetchRequest('/ingredients')
         .then(data => dispatch(getIngredientsSuccess(data.data)))
         .catch(error => {
             dispatch(getIngredientsFailed())
-            console.log(`Api response error: ${error.message}`)
+            console.log(`Get ingredients response error: ${error.message}`)
         })
 }
 
 export const postOrderThunk = (ingredientsIds) => (dispatch) => {
     dispatch(postOrderRequest())
-    fetchRequest('/orders', {ingredients: ingredientsIds}, 'POST')
-        .then(data => dispatch(postOrderSuccess(data.order.number)))
+    authFetchRequest('/orders', {ingredients: ingredientsIds}, 'POST')
+        .then(data => {
+            dispatch(postOrderSuccess(data.order.number))
+        })
         .catch(error => {
             dispatch(postOrderFailed())
-            console.log(`Api response error: ${error.message}`)
+            console.log(`Post order response error: ${error.message}`)
         })
 }
 

@@ -1,0 +1,19 @@
+.form {
+    max-width: 480px;
+    width: 100%;
+}
+
+.form > div {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.form > div > div {
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
