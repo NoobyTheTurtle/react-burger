@@ -2,8 +2,7 @@ import styles from "./place-order.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/modal";
 import OrderDetails from "../../order-details/order-details";
-import React, {useEffect} from "react";
-import {constructorIngredient, constructorIngredients} from "../../../utils/prop-types";
+import React, {FC, useEffect} from "react";
 import {calculateTotalPrice, postOrderThunk} from "../../../services/actions/burger";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -16,13 +15,19 @@ import {
 import {selectIsAuth} from "../../../services/reducers/auth";
 import {useNavigate} from "react-router-dom";
 import loader from "../../../images/loader.gif"
+import {TConstructorIngredient} from "../../../utils/types";
 
-const PlaceOrder = ({ingredients, bun}) => {
+type TPlaceOrderProps = {
+    ingredients: TConstructorIngredient[],
+    bun: TConstructorIngredient | null
+}
+
+const PlaceOrder: FC<TPlaceOrderProps> = ({ingredients, bun}) => {
     const dispatch = useDispatch()
-    const orderRequest = useSelector(selectOrderRequest)
-    const orderNumber = useSelector(selectOrderNumber)
-    const totalPrice = useSelector(selectTotalPrice)
-    const isAuth = useSelector(selectIsAuth)
+    const orderRequest: boolean = useSelector(selectOrderRequest)
+    const orderNumber: number | null = useSelector(selectOrderNumber)
+    const totalPrice: number = useSelector(selectTotalPrice)
+    const isAuth: boolean = useSelector(selectIsAuth)
     const navigate = useNavigate()
     const disabledButton = orderRequest || !bun || ingredients.length === 0
 
@@ -31,6 +36,8 @@ const PlaceOrder = ({ingredients, bun}) => {
             navigate("/login")
             return
         }
+
+        if (!bun) return
 
         const ingredientsIds = ingredients.map(el => el._id).concat([bun._id, bun._id])
         dispatch(postOrderThunk(ingredientsIds))
@@ -72,11 +79,6 @@ const PlaceOrder = ({ingredients, bun}) => {
             }
         </div>
     )
-}
-
-PlaceOrder.propTypes = {
-    ingredients: constructorIngredients,
-    bun: constructorIngredient
 }
 
 export default PlaceOrder

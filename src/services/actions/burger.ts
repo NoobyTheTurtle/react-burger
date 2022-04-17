@@ -11,8 +11,10 @@ import {
     setTotalPrice
 } from "../reducers/burger";
 import {authFetchRequest, fetchRequest} from "../../utils/api";
+import {TConstructorIngredient} from "../../utils/types";
+import {TBurgerState} from "../reducers/burger";
 
-export const getIngredientsThunk = () => (dispatch, getState) => {
+export const getIngredientsThunk = () => (dispatch: any, getState: () => TBurgerState) => {
     if (selectIngredients(getState()).length > 0) return
 
     dispatch(getIngredientsRequest())
@@ -24,7 +26,7 @@ export const getIngredientsThunk = () => (dispatch, getState) => {
         })
 }
 
-export const postOrderThunk = (ingredientsIds) => (dispatch) => {
+export const postOrderThunk = (ingredientsIds: string[]) => (dispatch: any) => {
     dispatch(postOrderRequest())
     authFetchRequest('/orders', {ingredients: ingredientsIds}, 'POST')
         .then(data => {
@@ -36,7 +38,7 @@ export const postOrderThunk = (ingredientsIds) => (dispatch) => {
         })
 }
 
-export const dropIngredient = (ingredient, bun) => (dispatch) => {
+export const dropIngredient = (ingredient: TConstructorIngredient, bun: TConstructorIngredient | null) => (dispatch: any) => {
     if (ingredient.type === 'bun' && bun) {
         if (bun._id === ingredient._id) return
         dispatch(removeIngredientFromConstructor(bun.constructorId))
@@ -44,7 +46,7 @@ export const dropIngredient = (ingredient, bun) => (dispatch) => {
     dispatch(addIngredientToConstructor(ingredient))
 }
 
-export const calculateTotalPrice = (ingredients, bun) => (dispatch) => {
+export const calculateTotalPrice = (ingredients: TConstructorIngredient[], bun: TConstructorIngredient | null) => (dispatch: any) => {
     let totalPrice = ingredients.reduce((prev, current) => prev + current.price, 0)
     if (bun) totalPrice += bun.price * 2
     dispatch(setTotalPrice(totalPrice))

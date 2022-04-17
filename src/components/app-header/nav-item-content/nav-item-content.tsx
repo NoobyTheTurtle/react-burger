@@ -1,8 +1,14 @@
 import styles from "./nav-item-content.module.css"
-import PropTypes from "prop-types";
 import {NavLink} from "react-router-dom";
+import {FC, ReactNode} from "react";
 
-const NavItemContent = ({text, Icon, to}) => {
+type TNavItemContentProps = {
+    text: string,
+    to: string,
+    children: ReactNode
+}
+
+const NavItemContent: FC<TNavItemContentProps> = ({text, to, children}) => {
     return (
         <NavLink
             to={to}
@@ -10,18 +16,12 @@ const NavItemContent = ({text, Icon, to}) => {
                 `${styles.item} pl-5 pr-5 pt-4 pb-4 ${isActive && styles.active}`
             }
         >
-            <Icon type={'secondary'}/>
+            {children}
             <p className={`text text_type_main-default ml-2 text_color_inactive ${styles.text}`}>
                 {text}
             </p>
         </NavLink>
     )
-}
-
-NavItemContent.propTypes = {
-    text: PropTypes.string.isRequired,
-    Icon: PropTypes.func.isRequired,
-    to: PropTypes.string.isRequired
 }
 
 export default NavItemContent

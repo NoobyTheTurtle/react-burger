@@ -4,24 +4,30 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectUser} from "../../services/reducers/auth";
 import {updateUserThunk} from "../../services/actions/auth";
 import styles from "./profile-form.module.css";
-import {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
+
+export type TProfileFormData = {
+    email: string,
+    name: string,
+    password: string
+}
 
 const ProfileForm = () => {
     const dispatch = useDispatch()
-    const [hasChange, setHasChange] = useState(false)
+    const [hasChange, setHasChange] = useState<boolean>(false)
     const user = useSelector(selectUser)
-    const initialUser = useMemo(() => ({
+    const initialUser: TProfileFormData = useMemo(() => ({
         ...user,
         password: ''
     }), [user])
-    const {formData, onChangeInput, setFormData} = useFormData(initialUser)
+    const {formData, onChangeInput, setFormData} = useFormData<TProfileFormData>(initialUser)
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         dispatch(updateUserThunk(formData))
     }
 
-    const onCancel = (e) => {
+    const onCancel = (e: React.SyntheticEvent) => {
         e.preventDefault()
         setFormData(initialUser)
     }

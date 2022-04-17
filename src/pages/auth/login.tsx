@@ -5,16 +5,22 @@ import useFormData from "../../utils/hooks/use-form-data";
 import {useDispatch, useSelector} from "react-redux";
 import {loginThunk} from "../../services/actions/auth";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
+import React from "react";
+
+export type TLoginData = {
+    email: string,
+    password: string
+}
 
 const Login = () => {
     const dispatch = useDispatch()
-    const isRequesting = useSelector(selectAuthIsRequesting)
-    const {formData, onChangeInput} = useFormData({
+    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
+    const {formData, onChangeInput} = useFormData<TLoginData>({
         email: '',
         password: ''
     })
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         dispatch(loginThunk(formData))
     }

@@ -5,16 +5,21 @@ import useFormData from "../../utils/hooks/use-form-data";
 import {useDispatch, useSelector} from "react-redux";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 import {forgotPasswordThunk} from "../../services/actions/auth";
+import React from "react";
+
+export type TForgotPasswordData = {
+    email: string
+}
 
 const ForgotPassword = () => {
-    const isRequesting = useSelector(selectAuthIsRequesting)
+    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const {formData, onChangeInput} = useFormData({
+    const {formData, onChangeInput} = useFormData<TForgotPasswordData>({
         email: ''
     })
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         dispatch(forgotPasswordThunk(formData, navigate))
     }

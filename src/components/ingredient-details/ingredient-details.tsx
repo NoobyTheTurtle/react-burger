@@ -2,12 +2,16 @@ import styles from "./ingredient-details.module.css"
 import {useParams} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {selectIngredients} from "../../services/reducers/burger";
-import {useMemo} from "react";
-import PropTypes from "prop-types";
+import {FC, useMemo} from "react";
+import {TBurgerIngredient} from "../../utils/types";
 
-const IngredientDetails = ({title}) => {
+type TIngredientDetailsProps = {
+    title?: string
+}
+
+const IngredientDetails: FC<TIngredientDetailsProps> = ({title}) => {
     const {ingredientId} = useParams()
-    const ingredients = useSelector(selectIngredients)
+    const ingredients: TBurgerIngredient[] = useSelector(selectIngredients)
     const chosenIngredient = useMemo(() => (
         ingredients.find(i => i._id === ingredientId)
     ), [ingredients, ingredientId])
@@ -42,10 +46,5 @@ const IngredientDetails = ({title}) => {
         </section>
     ) : (<></>)
 }
-
-IngredientDetails.propsTypes = {
-    title: PropTypes.string
-}
-
 
 export default IngredientDetails

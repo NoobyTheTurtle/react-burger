@@ -1,32 +1,50 @@
 import styles from './auth.module.css'
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
-import {useRef, useState} from "react";
+import {Link, Location, Navigate, useLocation, useNavigate} from "react-router-dom";
+import React, {useRef, useState} from "react";
 import useFormData from "../../utils/hooks/use-form-data";
 import {useDispatch, useSelector} from "react-redux";
 import {resetPasswordThunk} from "../../services/actions/auth";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 
+export type TResetPasswordData = {
+    password: string,
+    token: string
+}
+
+type TPasswordInputOptions = {
+    icon: 'HideIcon' | 'ShowIcon',
+    type: 'text' | 'password'
+}
+
+type LocationProps = {
+    state: {
+        from?: string
+    }
+}
+
 const ResetPassword = () => {
-    const isRequesting = useSelector(selectAuthIsRequesting)
+    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const location = useLocation()
-    const passwordRef = useRef(null)
-    const {formData, onChangeInput} = useFormData({
+    const location = useLocation() as LocationProps
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const {formData, onChangeInput} = useFormData<TResetPasswordData>({
         password: '',
         token: ''
     })
 
-    const [passwordInputOptions, setPasswordInputOptions] = useState({
+    const [passwordInputOptions, setPasswordInputOptions] = useState<TPasswordInputOptions>({
         icon: 'ShowIcon',
         type: 'password'
     })
 
     const onPasswordIconClick = () => {
-        let options
+        let options: TPasswordInputOptions
         if (passwordInputOptions.type === 'password') {
-            setTimeout(() => passwordRef.current.focus(), 0)
+            setTimeout(() => {
+                if (passwordRef?.current) passwordRef.current.focus()
+            }, 0)
             options = {icon: 'HideIcon', type: 'text'}
         } else {
             options = {icon: 'ShowIcon', type: 'password'}
@@ -34,7 +52,7 @@ const ResetPassword = () => {
         setPasswordInputOptions(options)
     }
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         dispatch(resetPasswordThunk(formData, navigate))
     }
