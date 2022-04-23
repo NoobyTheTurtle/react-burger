@@ -1,6 +1,5 @@
-
 const ProfileOrders = () => {
-    return(<></>)
+    return (<></>)
 }
 
 export default ProfileOrders

@@ -1,11 +1,15 @@
 import styles from "./burger-ingredients-section.module.css";
 import React from "react";
-import PropTypes from "prop-types";
 import BurgerIngredientsItem from "./burger-ingredients-item/burger-ingredients-item";
-import {burgerIngredients} from "../../../utils/prop-types";
+import {TBurgerIngredient} from "../../../utils/types";
 
+type TBurgerIngredientsSectionProps = {
+    ingredients: TBurgerIngredient[],
+    title: string
+}
 
-const BurgerIngredientsSection = React.forwardRef(({ingredients, title}, ref) => {
+const BurgerIngredientsSection = React.forwardRef<HTMLHeadingElement, TBurgerIngredientsSectionProps>
+(({ingredients, title}, ref) => {
     if (ingredients.length === 0) return (<></>)
 
     return (
@@ -19,10 +23,5 @@ const BurgerIngredientsSection = React.forwardRef(({ingredients, title}, ref) =>
         </>
     )
 })
-
-BurgerIngredientsSection.propTypes = {
-    ingredients: burgerIngredients,
-    title: PropTypes.string.isRequired
-}
 
 export default BurgerIngredientsSection

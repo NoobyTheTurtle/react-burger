@@ -1,15 +1,19 @@
 import styles from "./burger-ingredients-item.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {burgerIngredient} from "../../../../utils/prop-types";
 import {useSelector} from "react-redux";
 import {selectConstructorIngredients} from "../../../../services/reducers/burger";
 import {useDrag} from "react-dnd";
-import React, {useMemo} from "react";
+import React, {FC, useMemo} from "react";
 import {Link, useLocation} from "react-router-dom";
+import {TBurgerIngredient, TConstructorIngredient} from "../../../../utils/types";
 
-const BurgerIngredientsItem = ({ingredient}) => {
+type TBurgerIngredientsItemProps = {
+    ingredient: TBurgerIngredient
+}
+
+const BurgerIngredientsItem: FC<TBurgerIngredientsItemProps> = ({ingredient}) => {
     const location = useLocation()
-    const constructorIngredients = useSelector(selectConstructorIngredients)
+    const constructorIngredients: TConstructorIngredient[] = useSelector(selectConstructorIngredients)
     const [, dragRef] = useDrag({
         type: 'ingredients', item: ingredient
     })
@@ -46,10 +50,6 @@ const BurgerIngredientsItem = ({ingredient}) => {
             </li>
         </Link>
     )
-}
-
-BurgerIngredientsItem.propTypes = {
-    ingredient: burgerIngredient.isRequired
 }
 
 export default BurgerIngredientsItem

@@ -17,9 +17,15 @@ import Orders from "./orders/orders";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import IngredientDetailsModal from "../components/ingredient-details/ingredient-details-modal";
 
+type LocationProps = {
+    state: {
+        background?: string
+    }
+}
+
 const Pages = () => {
     const dispatch = useDispatch()
-    const location = useLocation()
+    const location = useLocation() as LocationProps
     const background = location.state && location.state.background
 
     useEffect(() => {

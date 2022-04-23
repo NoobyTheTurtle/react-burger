@@ -1,16 +1,20 @@
 import styles from "./selected-ingredients.module.css";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
-import {constructorIngredient, constructorIngredients} from "../../../utils/prop-types";
-import React, {useCallback} from "react";
+import React, {FC, useCallback} from "react";
 import SelectedIngredientsItem from "./selected-ingredients-item/selected-ingredients-item";
 import {useDispatch} from "react-redux";
 import {removeIngredientFromConstructor} from "../../../services/reducers/burger";
+import {TConstructorIngredient} from "../../../utils/types";
 
-const SelectedIngredients = ({bun, ingredients}) => {
+type TSelectedIngredientsProps = {
+    bun: TConstructorIngredient | null,
+    ingredients: TConstructorIngredient[]
+}
+
+const SelectedIngredients: FC<TSelectedIngredientsProps> = ({bun, ingredients}) => {
     const dispatch = useDispatch()
 
-    const handleClose = useCallback((ingredientId) => (e) => {
-        e.preventDefault()
+    const handleClose = useCallback((ingredientId: string) => () => {
         dispatch(removeIngredientFromConstructor(ingredientId))
     }, [dispatch])
 
@@ -35,7 +39,7 @@ const SelectedIngredients = ({bun, ingredients}) => {
                             key={ingredient.constructorId}
                             id={ingredient.constructorId}
                             index={index}
-                            handleClose={handleClose}
+                            handleClose={handleClose(ingredient.constructorId)}
                         />
                     ))
                 }
@@ -53,11 +57,6 @@ const SelectedIngredients = ({bun, ingredients}) => {
             )}
         </>
     )
-}
-
-SelectedIngredients.propTypes = {
-    bun: constructorIngredient,
-    ingredients: constructorIngredients
 }
 
 export default SelectedIngredients

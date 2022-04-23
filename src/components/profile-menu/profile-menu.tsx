@@ -5,7 +5,7 @@ import styles from "./profile-menu.module.css";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 
 const ProfileMenu = () => {
-    const isRequesting = useSelector(selectAuthIsRequesting)
+    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
     const dispatch = useDispatch()
     const onLogout = () => {
         dispatch(logoutThunk())

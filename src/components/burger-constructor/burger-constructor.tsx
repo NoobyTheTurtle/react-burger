@@ -6,11 +6,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectConstructorIngredients} from "../../services/reducers/burger";
 import {useDrop} from "react-dnd";
 import {dropIngredient} from "../../services/actions/burger";
+import {TConstructorIngredient} from "../../utils/types";
 
 const BurgerConstructor = () => {
-    const ingredients = useSelector(selectConstructorIngredients)
+    const ingredients: TConstructorIngredient[] = useSelector(selectConstructorIngredients)
     const dispatch = useDispatch()
-    const [, dropRef] = useDrop({
+    const [, dropRef] = useDrop<TConstructorIngredient>({
         accept: 'ingredients',
         drop(ingredient) {
             dispatch(dropIngredient(ingredient, bun))

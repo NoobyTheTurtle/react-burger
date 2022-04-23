@@ -23,8 +23,13 @@ import {
     updateUserSuccess
 } from "../reducers/auth";
 import {deleteCookie, getCookie, setCookie} from "../cookies";
+import {TLoginData} from "../../pages/auth/login";
+import {TRegisterData} from "../../pages/auth/register";
+import {TProfileFormData} from "../../components/profile-form/profile-form";
+import {TResetPasswordData} from "../../pages/auth/reset-password";
+import {TForgotPasswordData} from "../../pages/auth/forgot-password";
 
-export const loginThunk = (loginData) => (dispatch) => {
+export const loginThunk = (loginData: TLoginData) => (dispatch: any) => {
     dispatch(loginRequest())
     fetchRequest('/auth/login', loginData, 'POST')
         .then(data => {
@@ -42,7 +47,7 @@ export const loginThunk = (loginData) => (dispatch) => {
         })
 }
 
-export const registerThunk = (registerData) => (dispatch) => {
+export const registerThunk = (registerData: TRegisterData) => (dispatch: any) => {
     dispatch(registerRequest())
     fetchRequest('/auth/register', registerData, 'POST')
         .then(data => {
@@ -60,7 +65,7 @@ export const registerThunk = (registerData) => (dispatch) => {
         })
 }
 
-export const logoutThunk = () => (dispatch) => {
+export const logoutThunk = () => (dispatch: any) => {
     dispatch(logoutRequest())
     fetchRequest('/auth/logout', {token: getCookie('refreshToken')}, 'POST')
         .then(data => {
@@ -78,7 +83,7 @@ export const logoutThunk = () => (dispatch) => {
         })
 }
 
-export const getUserThunk = () => (dispatch) => {
+export const getUserThunk = () => (dispatch: any) => {
     dispatch(getUserRequest())
     authFetchRequest('/auth/user')
         .then(data => {
@@ -94,7 +99,7 @@ export const getUserThunk = () => (dispatch) => {
         })
 }
 
-export const updateUserThunk = (userData) => (dispatch) => {
+export const updateUserThunk = (userData: TProfileFormData) => (dispatch: any) => {
     dispatch(updateUserRequest())
     authFetchRequest('/auth/user', userData, 'PATCH')
         .then(data => {
@@ -110,7 +115,7 @@ export const updateUserThunk = (userData) => (dispatch) => {
         })
 }
 
-export const resetPasswordThunk = (formData, navigate) => (dispatch) => {
+export const resetPasswordThunk = (formData: TResetPasswordData, navigate: (to: string) => void) => (dispatch: any) => {
     dispatch(resetPasswordRequest())
     fetchRequest('/password-reset/reset', {...formData}, 'POST')
         .then(data => {
@@ -127,7 +132,7 @@ export const resetPasswordThunk = (formData, navigate) => (dispatch) => {
         })
 }
 
-export const forgotPasswordThunk = (formData, navigate) => (dispatch) => {
+export const forgotPasswordThunk = (formData: TForgotPasswordData, navigate: (to: string, state: any) => void) => (dispatch: any) => {
     dispatch(forgotPasswordRequest())
     fetchRequest('/password-reset', {...formData}, 'POST')
         .then(data => {

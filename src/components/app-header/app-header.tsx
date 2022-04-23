@@ -11,9 +11,13 @@ const AppHeader = () => {
         <header>
             <nav className={`${style.header} pt-4 pb-4`}>
                 <div className={style.left}>
-                    <NavItemContent text="Конструктор" Icon={BurgerIcon} to={"/"}/>
+                    <NavItemContent text="Конструктор" to={"/"}>
+                        <BurgerIcon type='secondary'/>
+                    </NavItemContent>
                     <div className="ml-2">
-                        <NavItemContent text="Лента заказов" Icon={ListIcon} to={"/orders"}/>
+                        <NavItemContent text="Лента заказов" to={"/orders"}>
+                            <ListIcon type='secondary'/>
+                        </NavItemContent>
                     </div>
                 </div>
                 <div className={style.navItem}>
@@ -22,11 +26,9 @@ const AppHeader = () => {
                     </Link>
                 </div>
                 <div className={style.navItem}>
-                    <NavItemContent
-                        to="/profile"
-                        text={user.name ? user.name : "Личный кабинет"}
-                        Icon={ProfileIcon}
-                    />
+                    <NavItemContent to="/profile" text={user.name ? user.name : "Личный кабинет"}>
+                        <ProfileIcon type='secondary'/>
+                    </NavItemContent>
                 </div>
             </nav>
         </header>

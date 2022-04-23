@@ -1,6 +1,21 @@
 import {createSlice, nanoid} from "@reduxjs/toolkit";
+import {TBurgerIngredient, TConstructorIngredient} from "../../utils/types";
 
-const initialState = {
+export type TBurgerState = {
+    burger: TBurgerInitialState
+}
+
+type TBurgerInitialState = {
+    ingredients: TBurgerIngredient[],
+    constructorIngredients: TConstructorIngredient[],
+    order: {
+        number: number | null
+    },
+    orderRequest: boolean,
+    totalPrice: number
+}
+
+const initialState: TBurgerInitialState = {
     ingredients: [],
     constructorIngredients: [],
     order: {
@@ -72,10 +87,10 @@ export const {
     clearIngredientsFromConstructor
 } = burgerSlice.actions;
 
-export const selectIngredients = (state) => state.burger.ingredients
-export const selectConstructorIngredients = (state) => state.burger.constructorIngredients
-export const selectOrderNumber = (state) => state.burger.order.number
-export const selectOrderRequest = (state) => state.burger.orderRequest
-export const selectTotalPrice = (state) => state.burger.totalPrice
+export const selectIngredients = (state: TBurgerState) => state.burger.ingredients
+export const selectConstructorIngredients = (state: TBurgerState) => state.burger.constructorIngredients
+export const selectOrderNumber = (state: TBurgerState) => state.burger.order.number
+export const selectOrderRequest = (state: TBurgerState) => state.burger.orderRequest
+export const selectTotalPrice = (state: TBurgerState) => state.burger.totalPrice
 
 export default burgerSlice.reducer

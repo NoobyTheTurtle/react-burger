@@ -1,9 +1,22 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-const initialState = {
+type TAuthState = {
+    auth: TAuthInitialState
+}
+
+type TAuthInitialState = {
     user: {
-        email: null,
-        name: null
+        email: string
+        name: string
+    },
+    isAuth: boolean,
+    isRequesting: boolean
+}
+
+const initialState: TAuthInitialState = {
+    user: {
+        email: '',
+        name: ''
     },
     isAuth: false,
     isRequesting: false
@@ -107,8 +120,8 @@ export const {
     forgotPasswordFailed,
 } = authSlice.actions;
 
-export const selectUser = (state) => state.auth.user
-export const selectIsAuth = (state) => state.auth.isAuth
-export const selectAuthIsRequesting = (state) => state.auth.isRequesting
+export const selectUser = (state: TAuthState) => state.auth.user
+export const selectIsAuth = (state: TAuthState) => state.auth.isAuth
+export const selectAuthIsRequesting = (state: TAuthState) => state.auth.isRequesting
 
 export default authSlice.reducer

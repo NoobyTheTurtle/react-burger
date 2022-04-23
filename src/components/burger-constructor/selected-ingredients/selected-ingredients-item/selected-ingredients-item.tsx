@@ -1,16 +1,25 @@
 import styles from "./selected-ingredients-item.module.css";
+import type {Identifier, XYCoord} from 'dnd-core'
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import React, {useRef} from "react";
-import {constructorIngredient} from "../../../../utils/prop-types";
-import PropTypes from "prop-types";
+import React, {FC, useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
 import {replaceIngredient} from "../../../../services/reducers/burger";
+import {TConstructorIngredient} from "../../../../utils/types";
 
-const SelectedIngredientsItem = ({ingredient, handleClose, index}) => {
+type TSelectedIngredientsItemProps = {
+    ingredient: TConstructorIngredient,
+    handleClose: () => void,
+    index: number,
+    id: string
+}
+
+const SelectedIngredientsItem: FC<TSelectedIngredientsItemProps> = ({ingredient, handleClose, index}) => {
     const dispatch = useDispatch()
-    const ref = useRef()
-    const [{handlerId}, dropRef] = useDrop({
+    const ref = useRef<HTMLLIElement>(null)
+    const [{handlerId}, dropRef] = useDrop<TSelectedIngredientsItemProps,
+        void,
+        { handlerId: Identifier | null }>({
         accept: 'replaceIngredient',
         collect(monitor) {
             return {
@@ -27,7 +36,7 @@ const SelectedIngredientsItem = ({ingredient, handleClose, index}) => {
             const hoverBoundingRect = ref.current?.getBoundingClientRect()
             const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
             const clientOffset = monitor.getClientOffset()
-            const hoverClientY = clientOffset.y - hoverBoundingRect.top
+            const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) return
             if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) return
 
@@ -61,16 +70,10 @@ const SelectedIngredientsItem = ({ingredient, handleClose, index}) => {
                 text={ingredient.name}
                 price={ingredient.price}
                 thumbnail={ingredient.image_mobile}
-                handleClose={handleClose(ingredient.constructorId)}
+                handleClose={handleClose}
             />
         </li>
     )
-}
-
-SelectedIngredientsItem.propTypes = {
-    ingredient: constructorIngredient.isRequired,
-    handleClose: PropTypes.func.isRequired,
-    index: PropTypes.number.isRequired
 }
 
 export default SelectedIngredientsItem
