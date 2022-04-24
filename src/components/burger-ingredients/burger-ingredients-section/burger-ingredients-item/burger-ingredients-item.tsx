@@ -1,11 +1,11 @@
 import styles from "./burger-ingredients-item.module.css";
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../../../services/types/hooks";
 import {selectConstructorIngredients} from "../../../../services/reducers/burger";
 import {useDrag} from "react-dnd";
 import React, {FC, useMemo} from "react";
 import {Link, useLocation} from "react-router-dom";
-import {TBurgerIngredient, TConstructorIngredient} from "../../../../utils/types";
+import {TBurgerIngredient} from "../../../../services/types/ingredient";
 
 type TBurgerIngredientsItemProps = {
     ingredient: TBurgerIngredient
@@ -13,7 +13,7 @@ type TBurgerIngredientsItemProps = {
 
 const BurgerIngredientsItem: FC<TBurgerIngredientsItemProps> = ({ingredient}) => {
     const location = useLocation()
-    const constructorIngredients: TConstructorIngredient[] = useSelector(selectConstructorIngredients)
+    const constructorIngredients = useSelector(selectConstructorIngredients)
     const [, dragRef] = useDrag({
         type: 'ingredients', item: ingredient
     })

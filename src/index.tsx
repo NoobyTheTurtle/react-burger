@@ -2,15 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import rootReducer from "./services/reducers";
 import {Provider} from "react-redux";
-import {configureStore} from "@reduxjs/toolkit";
 import Pages from "./pages";
 import {BrowserRouter} from "react-router-dom";
-
-const store = configureStore({
-    reducer: rootReducer
-})
+import store from "./services/store";
 
 ReactDOM.render(
     <React.StrictMode>

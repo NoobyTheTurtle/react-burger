@@ -2,14 +2,14 @@ import styles from "./burger-constructor.module.css";
 import SelectedIngredients from "./selected-ingredients/selected-ingredients";
 import PlaceOrder from "./place-order/place-order";
 import React, {useMemo} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {selectConstructorIngredients} from "../../services/reducers/burger";
 import {useDrop} from "react-dnd";
 import {dropIngredient} from "../../services/actions/burger";
-import {TConstructorIngredient} from "../../utils/types";
+import {TConstructorIngredient} from "../../services/types/ingredient";
 
 const BurgerConstructor = () => {
-    const ingredients: TConstructorIngredient[] = useSelector(selectConstructorIngredients)
+    const ingredients = useSelector(selectConstructorIngredients)
     const dispatch = useDispatch()
     const [, dropRef] = useDrop<TConstructorIngredient>({
         accept: 'ingredients',

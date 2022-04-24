@@ -1,12 +1,13 @@
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {NavLink, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {logoutThunk} from "../../services/actions/auth";
 import styles from "./profile-menu.module.css";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 
 const ProfileMenu = () => {
-    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
+    const isRequesting = useSelector(selectAuthIsRequesting)
     const dispatch = useDispatch()
+    const location = useLocation()
     const onLogout = () => {
         dispatch(logoutThunk())
     }
@@ -41,7 +42,10 @@ const ProfileMenu = () => {
                 </p>
             </button>
             <span className={`${styles.info} text text_type_main-default text_color_inactive mt-20`}>
-                В этом разделе вы можете изменить свои персональные данные
+                {location.pathname.includes('orders') ?
+                    "В этом разделе вы можете просмотреть свою историю заказов" :
+                    "В этом разделе вы можете изменить свои персональные данные"
+                }
             </span>
         </nav>
     )

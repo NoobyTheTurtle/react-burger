@@ -1,0 +1,63 @@
+.li {
+    border-radius: 40px;
+    background-color: #1C1C21;
+}
+
+.infoOrder {
+    display: flex;
+    justify-content: space-between;
+}
+
+.totalPrice {
+    display: inline-flex;
+    align-items: center;
+}
+
+.infoIngredients {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.h3 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.images {
+    display: inline-flex;
+}
+
+.images span{
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    margin-right: -15px;
+    border: 2px solid rgba(76, 76, 255, 1);
+    background: #000;
+}
+
+.images img {
+    width: 100%;
+    transform: scale(1.8);
+    top: 15px;
+    position: relative;
+}
+
+.images p {
+    position: relative;
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 32px;
+}
+
+.done {
+    color: #00CCCC;
+}

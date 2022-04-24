@@ -4,7 +4,7 @@ import Modal from "../../modal/modal";
 import OrderDetails from "../../order-details/order-details";
 import React, {FC, useEffect} from "react";
 import {calculateTotalPrice, postOrderThunk} from "../../../services/actions/burger";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../../services/types/hooks";
 import {
     clearIngredientsFromConstructor,
     deleteOrderNumber,
@@ -14,8 +14,8 @@ import {
 } from "../../../services/reducers/burger";
 import {selectIsAuth} from "../../../services/reducers/auth";
 import {useNavigate} from "react-router-dom";
-import loader from "../../../images/loader.gif"
-import {TConstructorIngredient} from "../../../utils/types";
+import {TConstructorIngredient} from "../../../services/types/ingredient";
+import Loader from "../../loader/loader";
 
 type TPlaceOrderProps = {
     ingredients: TConstructorIngredient[],
@@ -24,10 +24,10 @@ type TPlaceOrderProps = {
 
 const PlaceOrder: FC<TPlaceOrderProps> = ({ingredients, bun}) => {
     const dispatch = useDispatch()
-    const orderRequest: boolean = useSelector(selectOrderRequest)
-    const orderNumber: number | null = useSelector(selectOrderNumber)
-    const totalPrice: number = useSelector(selectTotalPrice)
-    const isAuth: boolean = useSelector(selectIsAuth)
+    const orderRequest = useSelector(selectOrderRequest)
+    const orderNumber = useSelector(selectOrderNumber)
+    const totalPrice = useSelector(selectTotalPrice)
+    const isAuth = useSelector(selectIsAuth)
     const navigate = useNavigate()
     const disabledButton = orderRequest || !bun || ingredients.length === 0
 
@@ -67,10 +67,7 @@ const PlaceOrder: FC<TPlaceOrderProps> = ({ingredients, bun}) => {
             </Button>
             {orderRequest ? (
                 <Modal>
-                    <section className={styles.waitSection}>
-                        <img src={loader} alt={"loader"} width={70} height={70}/>
-                        <h2 className="text text_type_main-large mt-10">Заказ формируется</h2>
-                    </section>
+                    <Loader title="Заказ формируется"/>
                 </Modal>
             ) : orderNumber && (
                 <Modal handleClose={handleClose}>

@@ -1,9 +1,8 @@
 import styles from "./ingredient-details.module.css"
 import {useParams} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
 import {selectIngredients} from "../../services/reducers/burger";
 import {FC, useMemo} from "react";
-import {TBurgerIngredient} from "../../utils/types";
 
 type TIngredientDetailsProps = {
     title?: string
@@ -11,7 +10,7 @@ type TIngredientDetailsProps = {
 
 const IngredientDetails: FC<TIngredientDetailsProps> = ({title}) => {
     const {ingredientId} = useParams()
-    const ingredients: TBurgerIngredient[] = useSelector(selectIngredients)
+    const ingredients = useSelector(selectIngredients)
     const chosenIngredient = useMemo(() => (
         ingredients.find(i => i._id === ingredientId)
     ), [ingredients, ingredientId])

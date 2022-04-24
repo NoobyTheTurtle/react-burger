@@ -2,20 +2,15 @@ import styles from "./auth.module.css";
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link} from "react-router-dom";
 import useFormData from "../../utils/hooks/use-form-data";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {registerThunk} from "../../services/actions/auth";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 import React from "react";
-
-export type TRegisterData = {
-    email: string,
-    password: string
-    name: string
-}
+import {TRegisterData} from "../../services/types/auth-data";
 
 const Register = () => {
     const dispatch = useDispatch()
-    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
+    const isRequesting = useSelector(selectAuthIsRequesting)
     const {formData, onChangeInput} = useFormData<TRegisterData>({
         email: '',
         password: '',
