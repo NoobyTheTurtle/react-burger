@@ -16,10 +16,12 @@ import {getUserThunk} from "../services/actions/auth";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import IngredientDetailsModal from "../components/ingredient-details/ingredient-details-modal";
 import Feed from "./feed/feed";
+import OrderDetails from "../components/order-details/order-details";
+import OrderDetailsModal from "../components/order-details/order-details-modal";
 
 type LocationProps = {
     state: {
-        background?: string
+        background?: Location
     }
 }
 
@@ -43,16 +45,14 @@ const Pages = () => {
 
                     <Route path="profile" element={<ProtectedRoute outlet={<Profile/>}/>}>
                         <Route index element={<ProfileForm/>}/>
-                        <Route path="orders">
-                            <Route index element={<ProfileOrders/>}/>
-                            <Route path=":id"/>
-                        </Route>
+                        <Route path="orders" element={<ProfileOrders/>}/>
                     </Route>
+                    <Route path="profile/orders/:orderId" element={<ProtectedRoute outlet={<OrderDetails/>}/>}/>
 
                     <Route index element={<Homepage/>}/>
                     <Route path="/feed">
                         <Route index element={<Feed/>}/>
-                        <Route path=":id"/>
+                        <Route path=":orderId" element={<OrderDetails/>}/>
                     </Route>
                     <Route path="/ingredients/:ingredientId"
                            element={<IngredientDetails title={"Детали ингредиента"}/>}
@@ -63,6 +63,7 @@ const Pages = () => {
             {background && (
                 <Routes>
                     <Route path="/ingredients/:ingredientId" element={<IngredientDetailsModal/>}/>
+                    <Route path={`${background.pathname}/:orderId`} element={<OrderDetailsModal/>}/>
                 </Routes>
             )}
         </>

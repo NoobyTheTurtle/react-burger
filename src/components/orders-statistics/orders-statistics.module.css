@@ -10,6 +10,7 @@
     height: 180px;
     width: 250px;
     overflow: auto;
+    columns: 3;
 }
 
 .numbers {
@@ -18,7 +19,7 @@
 }
 
 .ul::-webkit-scrollbar {
-    width: 8px;
+    height: 8px;
 }
 
 .ul::-webkit-scrollbar-track {

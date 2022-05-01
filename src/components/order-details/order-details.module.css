@@ -1,5 +1,72 @@
 .section {
+    max-width: 640px;
+}
+.done {
+    color: #00CCCC;
+}
+
+.price {
+    display: inline-flex;
+    align-items: center;
+}
+
+.price svg {
+    margin-left: 9px;
+}
+
+.ingredient {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.image {
+    width: 64px;
+    height: 64px;
+    border-radius: 100%;
+    border: 2px solid rgba(76, 76, 255, 1);
+    background: #000;
+}
+
+.image img {
+    width: 100%;
+    transform: scale(1.8);
+    top: 15px;
+    position: relative;
+}
+
+.ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    overflow: auto;
+    height: 320px;
+}
+
+.ul li:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.ul::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ul::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.ul::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    border: 3px solid #8585AD;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.number {
+    text-align: center;
 }

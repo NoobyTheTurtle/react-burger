@@ -1,9 +1,9 @@
 import {FC, useMemo} from 'react';
 import {useSelector} from "../../services/types/hooks";
 import {selectOrders, selectTotalOrders, selectTotalOrdersToday} from "../../services/reducers/orders";
-import styles from "./orders-info.module.css";
+import styles from "./orders-statistics.module.css";
 
-const OrdersInfo: FC = () => {
+const OrdersStatistics: FC = () => {
     const total = useSelector(selectTotalOrders)
     const totalToday = useSelector(selectTotalOrdersToday)
     const orders = useSelector(selectOrders)
@@ -50,4 +50,4 @@ const OrdersInfo: FC = () => {
     )
 }
 
-export default OrdersInfo
+export default OrdersStatistics

@@ -26,7 +26,7 @@ const ProfileOrders = () => {
         </ul>
     ) : (
         <div style={{margin: "auto"}}>
-            <Loader title="Загрузка..."/>
+            <Loader/>
         </div>
     )
 }

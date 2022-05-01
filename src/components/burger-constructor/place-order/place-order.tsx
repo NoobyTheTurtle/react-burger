@@ -1,7 +1,7 @@
 import styles from "./place-order.module.css";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../../modal/modal";
-import OrderDetails from "../../order-details/order-details";
+import OrderInfo from "../../order-info/order-info";
 import React, {FC, useEffect} from "react";
 import {calculateTotalPrice, postOrderThunk} from "../../../services/actions/burger";
 import {useDispatch, useSelector} from "../../../services/types/hooks";
@@ -71,7 +71,7 @@ const PlaceOrder: FC<TPlaceOrderProps> = ({ingredients, bun}) => {
                 </Modal>
             ) : orderNumber && (
                 <Modal handleClose={handleClose}>
-                    <OrderDetails title={orderNumber}/>
+                    <OrderInfo title={orderNumber}/>
                 </Modal>)
             }
         </div>

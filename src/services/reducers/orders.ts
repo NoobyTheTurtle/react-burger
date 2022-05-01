@@ -2,6 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TOrder} from "../types/order";
 import {TGetMessage} from "../types/ws-data";
 import {RootState} from "../types";
+import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
+import {TBurgerIngredient} from "../types/ingredient";
 
 type TOrdersState = {
     orders: TOrder[]
@@ -66,6 +68,14 @@ export const {
 export const selectOrders = (state: RootState) => state.orders.orders
 export const selectTotalOrders = (state: RootState) => state.orders.total
 export const selectTotalOrdersToday = (state: RootState) => state.orders.totalToday
-export const selectOrderIngredients= (order: TOrder) => (state: RootState) => state.burger.ingredients.filter((i) => order.ingredients.includes(i._id))
+export const selectOrderIngredients= (order: TOrder | undefined) => (state: RootState) => {
+    const orderIngredients: TBurgerIngredient[] = []
+    if (!order) return orderIngredients
+    order.ingredients.forEach((id) => {
+        const ingredient = state.burger.ingredients.find((i) => i._id === id)
+        if (ingredient) orderIngredients.push(ingredient)
+    })
+    return orderIngredients.sort((a, b) => a.type.length - b.type.length)
+}
 
 export default ordersSlice.reducer

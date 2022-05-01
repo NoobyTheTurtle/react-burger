@@ -1,6 +1,6 @@
 import {FC, useEffect} from "react";
 import OrdersList from "../../components/orders-list/orders-list";
-import OrdersInfo from "../../components/orders-info/orders-info";
+import OrdersStatistics from "../../components/orders-statistics/orders-statistics";
 import {useDispatch, useSelector} from "../../services/types/hooks";
 import {selectOrders, wsConnectionClose, wsConnectionStart} from "../../services/reducers/orders";
 import styles from "./feed.module.css";
@@ -24,11 +24,11 @@ const Feed: FC = () => {
                 <h2 className={"text text_type_main-large mt-10"}>Лента заказов</h2>
                 <div className={`${styles.container} mt-5`}>
                     <OrdersList/>
-                    <OrdersInfo/>
+                    <OrdersStatistics/>
                 </div>
             </>) : (
                 <div className="mt-30">
-                    <Loader title="Загрузка..."/>
+                    <Loader/>
                 </div>
             )}
         </section>
