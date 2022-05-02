@@ -11,15 +11,17 @@ import {ProtectedRoute, PublicRoute} from "../utils/routes";
 import React, {useEffect} from "react";
 import ProfileForm from "../components/profile-form/profile-form";
 import ProfileOrders from "../components/profile-orders/profile-orders";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../services/types/hooks";
 import {getUserThunk} from "../services/actions/auth";
-import Orders from "./orders/orders";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import IngredientDetailsModal from "../components/ingredient-details/ingredient-details-modal";
+import Feed from "./feed/feed";
+import OrderDetails from "../components/order-details/order-details";
+import OrderDetailsModal from "../components/order-details/order-details-modal";
 
 type LocationProps = {
     state: {
-        background?: string
+        background?: Location
     }
 }
 
@@ -36,28 +38,32 @@ const Pages = () => {
         <>
             <Routes location={background || location}>
                 <Route path="/" element={<App/>}>
-                    <Route path="login" element={<PublicRoute><Login/></PublicRoute>}/>
-                    <Route path="register" element={<PublicRoute><Register/></PublicRoute>}/>
-                    <Route path="forgot-password" element={<PublicRoute><ForgotPassword/></PublicRoute>}/>
-                    <Route path="reset-password" element={<PublicRoute><ResetPassword/></PublicRoute>}/>
+                    <Route path="login" element={<PublicRoute outlet={<Login/>}/>}/>
+                    <Route path="register" element={<PublicRoute outlet={<Register/>}/>}/>
+                    <Route path="forgot-password" element={<PublicRoute outlet={<ForgotPassword/>}/>}/>
+                    <Route path="reset-password" element={<PublicRoute outlet={<ResetPassword/>}/>}/>
 
-                    <Route path="profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}>
+                    <Route path="profile" element={<ProtectedRoute outlet={<Profile/>}/>}>
                         <Route index element={<ProfileForm/>}/>
                         <Route path="orders" element={<ProfileOrders/>}/>
                     </Route>
+                    <Route path="profile/orders/:orderId" element={<ProtectedRoute outlet={<OrderDetails/>}/>}/>
 
                     <Route index element={<Homepage/>}/>
-
+                    <Route path="/feed">
+                        <Route index element={<Feed/>}/>
+                        <Route path=":orderId" element={<OrderDetails/>}/>
+                    </Route>
                     <Route path="/ingredients/:ingredientId"
                            element={<IngredientDetails title={"Детали ингредиента"}/>}
                     />
-                    <Route path="orders" element={<Orders/>}/>
                     <Route path="*" element={<NotFound404/>}/>
                 </Route>
             </Routes>
             {background && (
                 <Routes>
                     <Route path="/ingredients/:ingredientId" element={<IngredientDetailsModal/>}/>
+                    <Route path={`${background.pathname}/:orderId`} element={<OrderDetailsModal/>}/>
                 </Routes>
             )}
         </>

@@ -1,10 +1,9 @@
 import styles from "./burger-ingredients.module.css";
 import React, {useMemo, useRef} from "react";
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
 import {selectIngredients} from "../../services/reducers/burger";
 import BurgerIngredientsSection from "./burger-ingredients-section/burger-ingredients-section";
-import {TBurgerIngredient} from "../../utils/types";
 
 const categories = [
     {title: "Булки", type: "bun"},
@@ -13,7 +12,7 @@ const categories = [
 ]
 
 const BurgerIngredients = () => {
-    const ingredients: TBurgerIngredient[] = useSelector(selectIngredients)
+    const ingredients = useSelector(selectIngredients)
     const [current, setCurrent] = React.useState<string>("bun")
 
     const ingredientsScrollBarRef = useRef<HTMLDivElement>(null)

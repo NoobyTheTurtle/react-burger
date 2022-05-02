@@ -1,16 +1,11 @@
 import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import useFormData from "../../utils/hooks/use-form-data";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {selectUser} from "../../services/reducers/auth";
 import {updateUserThunk} from "../../services/actions/auth";
 import styles from "./profile-form.module.css";
 import React, {useEffect, useMemo, useState} from "react";
-
-export type TProfileFormData = {
-    email: string,
-    name: string,
-    password: string
-}
+import {TProfileFormData} from "../../services/types/auth-data";
 
 const ProfileForm = () => {
     const dispatch = useDispatch()

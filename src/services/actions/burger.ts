@@ -11,10 +11,10 @@ import {
     setTotalPrice
 } from "../reducers/burger";
 import {authFetchRequest, fetchRequest} from "../../utils/api";
-import {TConstructorIngredient} from "../../utils/types";
-import {TBurgerState} from "../reducers/burger";
+import {TConstructorIngredient} from "../types/ingredient";
+import {AppThunk} from "../types";
 
-export const getIngredientsThunk = () => (dispatch: any, getState: () => TBurgerState) => {
+export const getIngredientsThunk = (): AppThunk => (dispatch, getState) => {
     if (selectIngredients(getState()).length > 0) return
 
     dispatch(getIngredientsRequest())
@@ -26,7 +26,7 @@ export const getIngredientsThunk = () => (dispatch: any, getState: () => TBurger
         })
 }
 
-export const postOrderThunk = (ingredientsIds: string[]) => (dispatch: any) => {
+export const postOrderThunk = (ingredientsIds: string[]): AppThunk => (dispatch) => {
     dispatch(postOrderRequest())
     authFetchRequest('/orders', {ingredients: ingredientsIds}, 'POST')
         .then(data => {
@@ -38,7 +38,7 @@ export const postOrderThunk = (ingredientsIds: string[]) => (dispatch: any) => {
         })
 }
 
-export const dropIngredient = (ingredient: TConstructorIngredient, bun: TConstructorIngredient | null) => (dispatch: any) => {
+export const dropIngredient = (ingredient: TConstructorIngredient, bun: TConstructorIngredient | null): AppThunk => (dispatch) => {
     if (ingredient.type === 'bun' && bun) {
         if (bun._id === ingredient._id) return
         dispatch(removeIngredientFromConstructor(bun.constructorId))
@@ -46,7 +46,7 @@ export const dropIngredient = (ingredient: TConstructorIngredient, bun: TConstru
     dispatch(addIngredientToConstructor(ingredient))
 }
 
-export const calculateTotalPrice = (ingredients: TConstructorIngredient[], bun: TConstructorIngredient | null) => (dispatch: any) => {
+export const calculateTotalPrice = (ingredients: TConstructorIngredient[], bun: TConstructorIngredient | null): AppThunk => (dispatch) => {
     let totalPrice = ingredients.reduce((prev, current) => prev + current.price, 0)
     if (bun) totalPrice += bun.price * 2
     dispatch(setTotalPrice(totalPrice))

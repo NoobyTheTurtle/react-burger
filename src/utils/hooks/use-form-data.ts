@@ -3,7 +3,7 @@ import React, {useState} from "react";
 const useFormData = <T>(initialState: T) => {
     const [formData, setFormData] = useState<T>(initialState)
 
-    const onChangeInput = (e: React.FormEvent<HTMLInputElement>): void => {
+    const onChangeInput = (e: React.FormEvent<HTMLInputElement>) => {
         setFormData({
             ...formData,
             [e.currentTarget.name]: e.currentTarget.value

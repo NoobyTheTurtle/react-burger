@@ -1,7 +1,7 @@
 export type TBurgerIngredient = {
     _id: string,
     name: string,
-    type: string,
+    type: 'bun' | 'sauce' | 'main',
     proteins: number,
     fat: number,
     carbohydrates: number,
@@ -16,7 +16,7 @@ export type TBurgerIngredient = {
 export type TConstructorIngredient = {
     _id: string,
     name: string,
-    type: string,
+    type: 'bun' | 'sauce' | 'main',
     proteins: number,
     fat: number,
     carbohydrates: number,

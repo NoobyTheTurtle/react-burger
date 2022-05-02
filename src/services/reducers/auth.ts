@@ -1,19 +1,18 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {RootState} from "../types";
 
 type TAuthState = {
-    auth: TAuthInitialState
-}
-
-type TAuthInitialState = {
-    user: {
-        email: string
-        name: string
-    },
+    user: TUser,
     isAuth: boolean,
     isRequesting: boolean
 }
 
-const initialState: TAuthInitialState = {
+type TUser = {
+    email: string
+    name: string
+}
+
+const initialState: TAuthState = {
     user: {
         email: '',
         name: ''
@@ -29,7 +28,7 @@ const authSlice = createSlice({
         loginRequest(state) {
             state.isRequesting = true
         },
-        loginSuccess(state, action) {
+        loginSuccess(state, action: PayloadAction<TUser>) {
             state.isRequesting = false
             state.user = action.payload
             state.isAuth = true
@@ -40,7 +39,7 @@ const authSlice = createSlice({
         registerRequest(state) {
             state.isRequesting = true
         },
-        registerSuccess(state, action) {
+        registerSuccess(state, action: PayloadAction<TUser>) {
             state.isRequesting = false
             state.user = action.payload
             state.isAuth = true
@@ -50,7 +49,7 @@ const authSlice = createSlice({
         },
         getUserRequest() {
         },
-        getUserSuccess(state, action) {
+        getUserSuccess(state, action: PayloadAction<TUser>) {
             state.user = action.payload
             state.isAuth = true
         },
@@ -68,7 +67,7 @@ const authSlice = createSlice({
         },
         updateUserRequest() {
         },
-        updateUserSuccess(state, action) {
+        updateUserSuccess(state, action: PayloadAction<TUser>) {
             state.user = action.payload
         },
         updateUserFailed() {
@@ -120,8 +119,8 @@ export const {
     forgotPasswordFailed,
 } = authSlice.actions;
 
-export const selectUser = (state: TAuthState) => state.auth.user
-export const selectIsAuth = (state: TAuthState) => state.auth.isAuth
-export const selectAuthIsRequesting = (state: TAuthState) => state.auth.isRequesting
+export const selectUser = (state: RootState) => state.auth.user
+export const selectIsAuth = (state: RootState) => state.auth.isAuth
+export const selectAuthIsRequesting = (state: RootState) => state.auth.isRequesting
 
 export default authSlice.reducer

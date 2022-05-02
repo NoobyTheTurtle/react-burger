@@ -1,4 +1,3 @@
-import Homepage from "../../pages/homepage/homepage";
 import Modal from "../modal/modal";
 import IngredientDetails from "./ingredient-details";
 import React, {useCallback} from "react";
@@ -11,15 +10,14 @@ const IngredientDetailsModal = () => {
         navigate(-1)
     }, [navigate])
 
-    return (<>
-        <Homepage/>
+    return (
         <Modal
             title={"Детали ингредиента"}
             handleClose={removeChosenIngredient}
         >
             <IngredientDetails/>
         </Modal>
-    </>)
+    )
 }
 
 export default IngredientDetailsModal

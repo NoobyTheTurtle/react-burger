@@ -1,4 +1,5 @@
 import {authFetchRequest, fetchRequest} from "../../utils/api";
+import {NavigateFunction} from "react-router-dom";
 import {
     forgotPasswordFailed,
     forgotPasswordRequest,
@@ -23,13 +24,16 @@ import {
     updateUserSuccess
 } from "../reducers/auth";
 import {deleteCookie, getCookie, setCookie} from "../cookies";
-import {TLoginData} from "../../pages/auth/login";
-import {TRegisterData} from "../../pages/auth/register";
-import {TProfileFormData} from "../../components/profile-form/profile-form";
-import {TResetPasswordData} from "../../pages/auth/reset-password";
-import {TForgotPasswordData} from "../../pages/auth/forgot-password";
+import {
+    TLoginData,
+    TRegisterData,
+    TProfileFormData,
+    TResetPasswordData,
+    TForgotPasswordData
+} from "../types/auth-data"
+import {AppThunk} from "../types";
 
-export const loginThunk = (loginData: TLoginData) => (dispatch: any) => {
+export const loginThunk = (loginData: TLoginData): AppThunk => (dispatch) => {
     dispatch(loginRequest())
     fetchRequest('/auth/login', loginData, 'POST')
         .then(data => {
@@ -47,7 +51,7 @@ export const loginThunk = (loginData: TLoginData) => (dispatch: any) => {
         })
 }
 
-export const registerThunk = (registerData: TRegisterData) => (dispatch: any) => {
+export const registerThunk = (registerData: TRegisterData): AppThunk => (dispatch) => {
     dispatch(registerRequest())
     fetchRequest('/auth/register', registerData, 'POST')
         .then(data => {
@@ -65,7 +69,7 @@ export const registerThunk = (registerData: TRegisterData) => (dispatch: any) =>
         })
 }
 
-export const logoutThunk = () => (dispatch: any) => {
+export const logoutThunk = (): AppThunk => (dispatch) => {
     dispatch(logoutRequest())
     fetchRequest('/auth/logout', {token: getCookie('refreshToken')}, 'POST')
         .then(data => {
@@ -83,7 +87,7 @@ export const logoutThunk = () => (dispatch: any) => {
         })
 }
 
-export const getUserThunk = () => (dispatch: any) => {
+export const getUserThunk = (): AppThunk => (dispatch) => {
     dispatch(getUserRequest())
     authFetchRequest('/auth/user')
         .then(data => {
@@ -99,7 +103,7 @@ export const getUserThunk = () => (dispatch: any) => {
         })
 }
 
-export const updateUserThunk = (userData: TProfileFormData) => (dispatch: any) => {
+export const updateUserThunk = (userData: TProfileFormData): AppThunk => (dispatch) => {
     dispatch(updateUserRequest())
     authFetchRequest('/auth/user', userData, 'PATCH')
         .then(data => {
@@ -115,7 +119,7 @@ export const updateUserThunk = (userData: TProfileFormData) => (dispatch: any) =
         })
 }
 
-export const resetPasswordThunk = (formData: TResetPasswordData, navigate: (to: string) => void) => (dispatch: any) => {
+export const resetPasswordThunk = (formData: TResetPasswordData, navigate: NavigateFunction): AppThunk => (dispatch) => {
     dispatch(resetPasswordRequest())
     fetchRequest('/password-reset/reset', {...formData}, 'POST')
         .then(data => {
@@ -132,7 +136,7 @@ export const resetPasswordThunk = (formData: TResetPasswordData, navigate: (to: 
         })
 }
 
-export const forgotPasswordThunk = (formData: TForgotPasswordData, navigate: (to: string, state: any) => void) => (dispatch: any) => {
+export const forgotPasswordThunk = (formData: TForgotPasswordData, navigate: NavigateFunction): AppThunk => (dispatch) => {
     dispatch(forgotPasswordRequest())
     fetchRequest('/password-reset', {...formData}, 'POST')
         .then(data => {

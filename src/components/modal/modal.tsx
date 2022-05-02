@@ -7,12 +7,14 @@ import ReactDOM from "react-dom";
 const modalRoot = document.getElementById("modal-root");
 
 type TModalProps = {
+    titleElement?: ReactNode,
     title?: string,
     handleClose?: () => void,
     children: ReactNode
 }
 
-const Modal: FC<TModalProps> = ({title, children, handleClose}) => {
+const Modal: FC<TModalProps> = (props) => {
+    const {title, children, handleClose, titleElement} = props
 
     useEffect(() => {
         if (!handleClose) return
@@ -36,6 +38,7 @@ const Modal: FC<TModalProps> = ({title, children, handleClose}) => {
                             <CloseIcon type="primary"/>
                         </button>
                         {title && (<h2 className="text text text_type_main-large">{title}</h2>)}
+                        {titleElement}
                     </div>
                 )}
                 {children}

@@ -2,19 +2,15 @@ import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger
 import {Link} from "react-router-dom";
 import styles from "./auth.module.css";
 import useFormData from "../../utils/hooks/use-form-data";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {loginThunk} from "../../services/actions/auth";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 import React from "react";
-
-export type TLoginData = {
-    email: string,
-    password: string
-}
+import {TLoginData} from "../../services/types/auth-data";
 
 const Login = () => {
     const dispatch = useDispatch()
-    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
+    const isRequesting = useSelector(selectAuthIsRequesting)
     const {formData, onChangeInput} = useFormData<TLoginData>({
         email: '',
         password: ''

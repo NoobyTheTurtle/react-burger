@@ -2,17 +2,14 @@ import styles from './auth.module.css'
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {Link, useNavigate} from "react-router-dom";
 import useFormData from "../../utils/hooks/use-form-data";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
 import {forgotPasswordThunk} from "../../services/actions/auth";
+import {TForgotPasswordData} from "../../services/types/auth-data";
 import React from "react";
 
-export type TForgotPasswordData = {
-    email: string
-}
-
 const ForgotPassword = () => {
-    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
+    const isRequesting = useSelector(selectAuthIsRequesting)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {formData, onChangeInput} = useFormData<TForgotPasswordData>({

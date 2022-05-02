@@ -1,16 +1,12 @@
 import styles from './auth.module.css'
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
-import {Link, Location, Navigate, useLocation, useNavigate} from "react-router-dom";
+import {Link, Navigate, useLocation, useNavigate} from "react-router-dom";
 import React, {useRef, useState} from "react";
 import useFormData from "../../utils/hooks/use-form-data";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/types/hooks";
 import {resetPasswordThunk} from "../../services/actions/auth";
 import {selectAuthIsRequesting} from "../../services/reducers/auth";
-
-export type TResetPasswordData = {
-    password: string,
-    token: string
-}
+import {TResetPasswordData} from "../../services/types/auth-data";
 
 type TPasswordInputOptions = {
     icon: 'HideIcon' | 'ShowIcon',
@@ -24,7 +20,7 @@ type LocationProps = {
 }
 
 const ResetPassword = () => {
-    const isRequesting: boolean = useSelector(selectAuthIsRequesting)
+    const isRequesting = useSelector(selectAuthIsRequesting)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation() as LocationProps

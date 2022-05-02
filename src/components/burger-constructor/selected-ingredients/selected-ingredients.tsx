@@ -2,9 +2,9 @@ import styles from "./selected-ingredients.module.css";
 import {ConstructorElement} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {FC, useCallback} from "react";
 import SelectedIngredientsItem from "./selected-ingredients-item/selected-ingredients-item";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../../services/types/hooks";
 import {removeIngredientFromConstructor} from "../../../services/reducers/burger";
-import {TConstructorIngredient} from "../../../utils/types";
+import {TConstructorIngredient} from "../../../services/types/ingredient";
 
 type TSelectedIngredientsProps = {
     bun: TConstructorIngredient | null,

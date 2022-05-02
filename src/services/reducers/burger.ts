@@ -1,11 +1,8 @@
-import {createSlice, nanoid} from "@reduxjs/toolkit";
-import {TBurgerIngredient, TConstructorIngredient} from "../../utils/types";
+import {createSlice, nanoid, PayloadAction} from "@reduxjs/toolkit";
+import {TBurgerIngredient, TConstructorIngredient} from "../types/ingredient";
+import {RootState} from "../types";
 
-export type TBurgerState = {
-    burger: TBurgerInitialState
-}
-
-type TBurgerInitialState = {
+type TBurgerState = {
     ingredients: TBurgerIngredient[],
     constructorIngredients: TConstructorIngredient[],
     order: {
@@ -15,7 +12,7 @@ type TBurgerInitialState = {
     totalPrice: number
 }
 
-const initialState: TBurgerInitialState = {
+const initialState: TBurgerState = {
     ingredients: [],
     constructorIngredients: [],
     order: {
@@ -31,7 +28,7 @@ const burgerSlice = createSlice({
     reducers: {
         getIngredientsRequest() {
         },
-        getIngredientsSuccess(state, action) {
+        getIngredientsSuccess(state, action: PayloadAction<TBurgerIngredient[]>) {
             state.ingredients = action.payload
         },
         getIngredientsFailed() {
@@ -40,7 +37,7 @@ const burgerSlice = createSlice({
         postOrderRequest(state) {
             state.orderRequest = true
         },
-        postOrderSuccess(state, action) {
+        postOrderSuccess(state, action: PayloadAction<number | null>) {
             state.orderRequest = false
             state.order.number = action.payload
         },
@@ -51,19 +48,19 @@ const burgerSlice = createSlice({
         deleteOrderNumber(state) {
             state.order.number = null
         },
-        addIngredientToConstructor(state, action) {
+        addIngredientToConstructor(state, action: PayloadAction<TConstructorIngredient>) {
             state.constructorIngredients.push({...action.payload, constructorId: nanoid()})
         },
-        removeIngredientFromConstructor(state, action) {
+        removeIngredientFromConstructor(state, action: PayloadAction<string>) {
             state.constructorIngredients = state.constructorIngredients.filter((i) => i.constructorId !== action.payload)
         },
         clearIngredientsFromConstructor(state) {
             state.constructorIngredients = []
         },
-        setTotalPrice(state, action) {
+        setTotalPrice(state, action: PayloadAction<number>) {
             state.totalPrice = action.payload
         },
-        replaceIngredient(state, action) {
+        replaceIngredient(state, action: PayloadAction<{dragIndex: number, hoverIndex: number}>) {
             const {dragIndex, hoverIndex} = action.payload
             const dragItem = state.constructorIngredients[dragIndex]
             state.constructorIngredients.splice(dragIndex, 1)
@@ -85,12 +82,12 @@ export const {
     setTotalPrice,
     replaceIngredient,
     clearIngredientsFromConstructor
-} = burgerSlice.actions;
+} = burgerSlice.actions
 
-export const selectIngredients = (state: TBurgerState) => state.burger.ingredients
-export const selectConstructorIngredients = (state: TBurgerState) => state.burger.constructorIngredients
-export const selectOrderNumber = (state: TBurgerState) => state.burger.order.number
-export const selectOrderRequest = (state: TBurgerState) => state.burger.orderRequest
-export const selectTotalPrice = (state: TBurgerState) => state.burger.totalPrice
+export const selectIngredients = (state: RootState) => state.burger.ingredients
+export const selectConstructorIngredients = (state: RootState) => state.burger.constructorIngredients
+export const selectOrderNumber = (state: RootState) => state.burger.order.number
+export const selectOrderRequest = (state: RootState) => state.burger.orderRequest
+export const selectTotalPrice = (state: RootState) => state.burger.totalPrice
 
 export default burgerSlice.reducer

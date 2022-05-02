@@ -1,7 +1,7 @@
 import style from './app-header.module.css'
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components"
 import NavItemContent from "./nav-item-content/nav-item-content";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/types/hooks";
 import {selectUser} from "../../services/reducers/auth";
 import {Link} from "react-router-dom";
 
@@ -15,7 +15,7 @@ const AppHeader = () => {
                         <BurgerIcon type='secondary'/>
                     </NavItemContent>
                     <div className="ml-2">
-                        <NavItemContent text="Лента заказов" to={"/orders"}>
+                        <NavItemContent text="Лента заказов" to={"/feed"}>
                             <ListIcon type='secondary'/>
                         </NavItemContent>
                     </div>

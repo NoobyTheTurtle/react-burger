@@ -1,0 +1,36 @@
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    height: 180px;
+    width: 250px;
+    overflow: auto;
+    columns: 3;
+}
+
+.numbers {
+    display: flex;
+    flex-direction: row;
+}
+
+.ul::-webkit-scrollbar {
+    height: 8px;
+}
+
+.ul::-webkit-scrollbar-track {
+    background: #2F2F37;
+}
+
+.ul::-webkit-scrollbar-thumb {
+    background-color: #8585AD;
+    border: 3px solid #8585AD;
+}
+
+.numbers_done {
+    color: #00CCCC;
+}

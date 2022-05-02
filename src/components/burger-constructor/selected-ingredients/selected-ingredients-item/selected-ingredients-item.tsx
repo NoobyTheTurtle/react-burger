@@ -3,9 +3,9 @@ import type {Identifier, XYCoord} from 'dnd-core'
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import React, {FC, useRef} from "react";
 import {useDrag, useDrop} from "react-dnd";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../../../services/types/hooks";
 import {replaceIngredient} from "../../../../services/reducers/burger";
-import {TConstructorIngredient} from "../../../../utils/types";
+import {TConstructorIngredient} from "../../../../services/types/ingredient";
 
 type TSelectedIngredientsItemProps = {
     ingredient: TConstructorIngredient,

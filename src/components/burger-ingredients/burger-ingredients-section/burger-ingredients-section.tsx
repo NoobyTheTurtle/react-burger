@@ -1,7 +1,7 @@
 import styles from "./burger-ingredients-section.module.css";
 import React from "react";
 import BurgerIngredientsItem from "./burger-ingredients-item/burger-ingredients-item";
-import {TBurgerIngredient} from "../../../utils/types";
+import {TBurgerIngredient} from "../../../services/types/ingredient";
 
 type TBurgerIngredientsSectionProps = {
     ingredients: TBurgerIngredient[],
