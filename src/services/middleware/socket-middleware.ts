@@ -1,25 +1,33 @@
 import type {Action, Middleware, MiddlewareAPI} from 'redux';
+import type {ActionCreatorWithoutPayload, ActionCreatorWithPayload} from "@reduxjs/toolkit";
 import {AppDispatch, RootState} from "../types";
-import {
-    wsConnectionClosed,
-    wsConnectionError,
-    wsConnectionStart,
-    wsConnectionSuccess,
-    wsGetMessage,
-    wsConnectionClose
-} from "../reducers/orders";
 
-const WS_URL = 'wss://norma.nomoreparties.space/'
+type TWsActions = {
+    wsConnectionClosed: ActionCreatorWithoutPayload,
+    wsConnectionError: ActionCreatorWithoutPayload,
+    wsConnectionStart: ActionCreatorWithPayload<string>,
+    wsConnectionSuccess: ActionCreatorWithoutPayload,
+    wsGetMessage: ActionCreatorWithPayload<any>,
+    wsConnectionClose: ActionCreatorWithoutPayload
+}
 
-export const socketMiddleware = (): Middleware => {
+export const socketMiddleware = (wsActions: TWsActions): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null
         return next => (action: Action & { payload: string }) => {
             const {dispatch} = store
-            const {type, payload: endpoint} = action
+            const {type, payload: url} = action
+            const {
+                wsConnectionClosed,
+                wsConnectionError,
+                wsConnectionStart,
+                wsConnectionSuccess,
+                wsGetMessage,
+                wsConnectionClose
+            } = wsActions
 
             if (type === wsConnectionStart.type) {
-                socket = new WebSocket(WS_URL + endpoint)
+                socket = new WebSocket(url)
             }
             if (socket) {
                 socket.onopen = () => dispatch(wsConnectionSuccess())

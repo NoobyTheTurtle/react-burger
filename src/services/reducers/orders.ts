@@ -2,7 +2,6 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {TOrder} from "../types/order";
 import {TGetMessage} from "../types/ws-data";
 import {RootState} from "../types";
-import BurgerIngredients from "../../components/burger-ingredients/burger-ingredients";
 import {TBurgerIngredient} from "../types/ingredient";
 
 type TOrdersState = {

@@ -46,9 +46,9 @@ const OrderDetails: FC<TOrderDetailsProps> = ({isModal = false}) => {
     useEffect(() => {
         if (!isModal) {
             if (pathname.indexOf("feed") === -1)
-                dispatch(wsConnectionStart(`orders?token=${getCookie('accessToken')}`))
+                dispatch(wsConnectionStart(`wss://norma.nomoreparties.space/orders?token=${getCookie('accessToken')}`))
             else
-                dispatch(wsConnectionStart('orders/all'))
+                dispatch(wsConnectionStart('wss://norma.nomoreparties.space/orders/all'))
         }
 
         return () => {

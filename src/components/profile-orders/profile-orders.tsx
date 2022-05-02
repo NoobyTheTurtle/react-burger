@@ -11,7 +11,7 @@ const ProfileOrders = () => {
     const orders = useSelector(selectOrders)
 
     useEffect(() => {
-        dispatch(wsConnectionStart(`orders?token=${getCookie('accessToken')}`))
+        dispatch(wsConnectionStart(`wss://norma.nomoreparties.space/orders?token=${getCookie('accessToken')}`))
 
         return () => {
             dispatch(wsConnectionClose())

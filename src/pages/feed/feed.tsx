@@ -11,7 +11,7 @@ const Feed: FC = () => {
     const orders = useSelector(selectOrders)
 
     useEffect(() => {
-        dispatch(wsConnectionStart('orders/all'))
+        dispatch(wsConnectionStart('wss://norma.nomoreparties.space/orders/all'))
 
         return () => {
             dispatch(wsConnectionClose())
