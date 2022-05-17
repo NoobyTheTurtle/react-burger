@@ -1,4 +1,5 @@
-import {createSlice, nanoid, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {nanoid} from "nanoid";
 import {TBurgerIngredient, TConstructorIngredient} from "../types/ingredient";
 import {RootState} from "../types";
 
@@ -48,7 +49,7 @@ const burgerSlice = createSlice({
         deleteOrderNumber(state) {
             state.order.number = null
         },
-        addIngredientToConstructor(state, action: PayloadAction<TConstructorIngredient>) {
+        addIngredientToConstructor(state, action: PayloadAction<TBurgerIngredient>) {
             state.constructorIngredients.push({...action.payload, constructorId: nanoid()})
         },
         removeIngredientFromConstructor(state, action: PayloadAction<string>) {

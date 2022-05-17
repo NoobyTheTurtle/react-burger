@@ -33,9 +33,8 @@ const ordersSlice = createSlice({
             state.isConnected = true
             state.isError = false
         },
-        wsConnectionError(state) {
-            state = initialState
-            state.isError = true
+        wsConnectionError() {
+            return {...initialState, isError: true}
         },
         wsConnectionClosed() {
             return initialState
@@ -67,7 +66,7 @@ export const {
 export const selectOrders = (state: RootState) => state.orders.orders
 export const selectTotalOrders = (state: RootState) => state.orders.total
 export const selectTotalOrdersToday = (state: RootState) => state.orders.totalToday
-export const selectOrderIngredients= (order: TOrder | undefined) => (state: RootState) => {
+export const selectOrderIngredients = (order: TOrder | undefined) => (state: RootState) => {
     const orderIngredients: TBurgerIngredient[] = []
     if (!order) return orderIngredients
     order.ingredients.forEach((id) => {
