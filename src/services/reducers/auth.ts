@@ -7,7 +7,7 @@ type TAuthState = {
     isRequesting: boolean
 }
 
-type TUser = {
+export type TUser = {
     email: string
     name: string
 }
